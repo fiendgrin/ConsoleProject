@@ -25,9 +25,12 @@ Employee class:
  IHumanResourceManager 
 
  - Departments  - sistemdeki departamentler siyahisini ifade edir
+
  - AddDepartment() - departament yaratmaq ucun lazimli melumatlari parameter olaraq qebul edib,yaradib,
                      departamenets arrayina elave eden metod
+
  - GetDepartments() - sistemdeki butun departamentleri geriye qaytaran 
+
  - EditDepartaments() - departamentin uzerinde deyisiklik - departamentin adi deyisdirile biler ve parameter oaraq deyisdirmek istediyi
                         departamentin adini ve yeni adini gonderir
 
