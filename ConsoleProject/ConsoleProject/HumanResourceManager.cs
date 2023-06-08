@@ -33,16 +33,25 @@ namespace ConsoleProject
             Departments[size - 1] = department;
         }
 
-        public void AddEmployee(string fullName, string position, double salary, string departmentName, ref Employee[] employees)
+        public void AddEmployee(string fullName, string position, double salary, string departmentName)
         {
-            int size = employees.Length;
+
             Employee employee = new Employee();
             employee.FullName = fullName;
             employee.Position = position;
             employee.Salary = salary;
             employee.DepartmentName = departmentName;
-            Array.Resize(ref employees, size + 1);
-            employees[size - 1] = employee;
+            int size = 0;
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == employee.DepartmentName)
+                {
+                    size = _departments[i].Employees.Length;
+                    Array.Resize(ref _departments[i].Employees, size + 1);
+                    _departments[i].Employees[size - 1] = employee;
+                }
+            }
+
         }
 
         public void EditDepartaments(string name, string newname)
@@ -66,7 +75,7 @@ namespace ConsoleProject
         }
         public void RemoveEmployee(string empno, string depname)
         {
-            check:
+        check:
             if (CheckDepartments(depname))
             {
                 for (int i = 0; i < _departments.Length; i++)
@@ -87,7 +96,7 @@ namespace ConsoleProject
 
 
             }
-            else 
+            else
             {
                 Console.WriteLine("this department name doesnt exist");
                 depname = Console.ReadLine();
@@ -96,7 +105,21 @@ namespace ConsoleProject
         }
         public void EditEmploye(string departmentName, string no, string fullname, double salary, string position)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (departmentName == _departments[i].Name)
+                {
+                    for (int j = 0; j < _departments[i].Employees.Length; j++)
+                    {
+                        if (_departments[i].Employees[j].No == no)
+                        {
+                            _departments[i].Employees[j].FullName = fullname;
+                            _departments[i].Employees[j].Salary = salary;
+                            _departments[i].Employees[j].Position = position;
+                        }
+                    }
+                }
+            }
         }
         public static bool CheckDepartments(string depname)
         {

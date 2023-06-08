@@ -12,8 +12,8 @@ namespace ConsoleProject.Interfaces
         void AddDepartment(string name, int workerlimit, double SalaryLimit);
         void GetDepartments();
         void EditDepartaments(string name, string newname);
-        void AddEmployee(string fullName, string position, double salary, string departmentName, ref Employee[] employees);
+        void AddEmployee(string fullName, string position, double salary, string departmentName);
         void RemoveEmployee(string empno, string depname);
-        void EditEmploye(string departmentName,string no,string fullname,double salary, string position);
+        void EditEmploye(string departmentName, string no, string fullname, double salary, string position);
     }
 }
