@@ -9,27 +9,20 @@ namespace ConsoleProject
     internal class Department
     {
         private string _name;
+        private Employee[] _employees;
         public Department()
         {
-            Employee[] Employees = new Employee[0];
+            _employees = new Employee[0];
+            
+        }
+        public ref  Employee[] Employees 
+        { 
+            get { return ref _employees; } 
         }
         public string Name
         {
             get { return _name; }
-            set {
-                while (_name != value)
-                {
-                    if (value.Length >= 2)
-                    {
-                        _name = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Department name cant be less than 2 characters");
-                        value = Console.ReadLine();
-                    }
-                }
-            }
+            set { _name = value; }
         }
 
         private int _workerLimit;
@@ -37,23 +30,7 @@ namespace ConsoleProject
         public int WorkerLimit
         {
             get { return _workerLimit; }
-            set 
-
-            {
-                while (_workerLimit != value)
-                {
-                    string str = value.ToString();
-                    if (value >= 1 && int.TryParse(str, out value))
-                    {
-                        _workerLimit = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Cant be less than \"1\" and should be a number");
-                        value = int.Parse(Console.ReadLine());
-                    }
-                }
-            }
+            set  {  _workerLimit = value;}
         }
 
         private double _salaryLimit;
@@ -61,34 +38,22 @@ namespace ConsoleProject
         public double SalaryLimit
         {
             get { return _salaryLimit; }
-            set 
+            set
             {
-                while (_salaryLimit != value)
-                {
-                    string str1 = value.ToString();
-                    if (value >= 1 && double.TryParse(str1, out value))
-                    {
-                        _salaryLimit = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Cant be less than \"250\" and should be an amount");
-                        value = double.Parse(Console.ReadLine());
-                    }
-                }
+                _salaryLimit = value;
             }
         }
 
-        public Employee[] Employees;
+        
 
-        public double CalcSalaryAverage() 
+        public double CalcSalaryAverage()
         {
             double sum = 0;
-            foreach (Employee emp in Employees) 
+            foreach (Employee emp in Employees)
             {
                 sum += emp.Salary;
             }
-            return sum/Employees.Length;
+            return sum / Employees.Length;
         }
     }
 }

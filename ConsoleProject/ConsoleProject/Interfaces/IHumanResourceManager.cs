@@ -9,8 +9,8 @@ namespace ConsoleProject.Interfaces
     internal interface IHumanResourceManager
     {
         Department[] Departments { get; }
-        void AddDepartment(string name, int workerlimit, double SalaryLimit);
-        void GetDepartments();
+        void AddDepartment(string name, int workerlimit, double SalaryLimit,Department department);
+        Department[] GetDepartments();
         void EditDepartaments(string name, string newname);
         void AddEmployee(string fullName, string position, double salary, string departmentName);
         void RemoveEmployee(string empno, string depname);

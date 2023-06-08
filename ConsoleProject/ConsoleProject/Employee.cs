@@ -21,7 +21,7 @@ namespace ConsoleProject
             get { return _no; }
             private set 
             {
-                value += _departmentName[0] + _departmentName[1] + _count;
+                value += _departmentName[0] + _departmentName[1] + _count.ToString(); ;
                 _no = value;
             }
         }
@@ -78,18 +78,19 @@ namespace ConsoleProject
             get { return _departmentName; }
             set 
             {
-                while (_departmentName != value)
-                {
-                    if (HumanResourceManager.CheckDepartments(value))
-                    {
-                        _departmentName = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("this department name doesnt exist");
-                        value = Console.ReadLine();
-                    }
-                }
+                _departmentName = value;
+                //while (_departmentName != value)
+                //{
+                //    if (CheckDepartments(value))
+                //    {
+                //        _departmentName = value;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine("this department name doesnt exist");
+                //        value = Console.ReadLine();
+                //    }
+                //}
             }
         }
 

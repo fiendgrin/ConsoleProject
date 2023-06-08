@@ -10,27 +10,26 @@ namespace ConsoleProject
 {
     internal class HumanResourceManager : IHumanResourceManager
     {
-        private static Department[] _departments;
-
+        private Department[] _departments;
+        public HumanResourceManager()
+        {
+            _departments = new Department[0];
+        }
         public Department[] Departments
         {
             get { return _departments; }
 
         }
-        public HumanResourceManager()
-        {
-            _departments = new Department[0];
-        }
 
-        public void AddDepartment(string name, int workerlimit, double SalaryLimit)
+
+        public void AddDepartment(string name, int workerlimit, double SalaryLimit,Department department)
         {
-            int size = Departments.Length;
-            Department department = new Department();
+            
             department.Name = name;
             department.WorkerLimit = workerlimit;
             department.SalaryLimit = SalaryLimit;
-            Array.Resize(ref _departments, size + 1);
-            Departments[size - 1] = department;
+            Array.Resize(ref _departments, _departments.Length + 1);
+            _departments[_departments.Length - 1] = department;
         }
 
         public void AddEmployee(string fullName, string position, double salary, string departmentName)
@@ -41,14 +40,12 @@ namespace ConsoleProject
             employee.Position = position;
             employee.Salary = salary;
             employee.DepartmentName = departmentName;
-            int size = 0;
             for (int i = 0; i < _departments.Length; i++)
             {
                 if (_departments[i].Name == employee.DepartmentName)
                 {
-                    size = _departments[i].Employees.Length;
-                    Array.Resize(ref _departments[i].Employees, size + 1);
-                    _departments[i].Employees[size - 1] = employee;
+                    Array.Resize(ref _departments[i].Employees, _departments[i].Employees.Length + 1);
+                    _departments[i].Employees[_departments[i].Employees.Length - 1] = employee;
                 }
             }
 
@@ -66,12 +63,13 @@ namespace ConsoleProject
             }
         }
 
-        public void GetDepartments()
+        public Department[] GetDepartments()
         {
-            for (int i = 0; i < _departments.Length; i++)
-            {
-                Console.WriteLine($"{i + 1}:\nName:{_departments[i].Name}\nWorker Limit:{_departments[i].WorkerLimit}\nSalary Limit:{_departments[i].SalaryLimit}");
-            }
+            return _departments;
+            //for (int i = 0; i < _departments.Length; i++)
+            //{
+            //    Console.WriteLine($"{i + 1}:\nName:{_departments[i].Name}\nWorker Limit:{_departments[i].WorkerLimit}\nSalary Limit:{_departments[i].SalaryLimit}");
+            //}
         }
         public void RemoveEmployee(string empno, string depname)
         {
@@ -121,7 +119,7 @@ namespace ConsoleProject
                 }
             }
         }
-        public static bool CheckDepartments(string depname)
+        public bool CheckDepartments(string depname)
         {
             for (int i = 0; i < _departments.Length; i++)
             {
