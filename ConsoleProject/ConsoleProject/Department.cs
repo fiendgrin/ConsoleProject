@@ -9,7 +9,10 @@ namespace ConsoleProject
     internal class Department
     {
         private string _name;
-
+        public Department()
+        {
+            Employee[] Employees = new Employee[0];
+        }
         public string Name
         {
             get { return _name; }
@@ -76,7 +79,7 @@ namespace ConsoleProject
             }
         }
 
-        public Employee[] Employees = { };
+        public Employee[] Employees;
 
         public double CalcSalaryAverage() 
         {

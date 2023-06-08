@@ -10,9 +10,9 @@ namespace ConsoleProject
 {
     internal class HumanResourceManager : IHumanResourceManager
     {
-        private  Department[] _departments;
+        private static Department[] _departments;
 
-        public  Department[] Departments
+        public Department[] Departments
         {
             get { return _departments; }
 
@@ -33,11 +33,10 @@ namespace ConsoleProject
             Departments[size - 1] = department;
         }
 
-        public void AddEmployee(string no, string fullName, string position, double salary, string departmentName,ref Employee[] employees)
+        public void AddEmployee(string fullName, string position, double salary, string departmentName, ref Employee[] employees)
         {
             int size = employees.Length;
             Employee employee = new Employee();
-            employee.No = no;
             employee.FullName = fullName;
             employee.Position = position;
             employee.Salary = salary;
@@ -48,9 +47,9 @@ namespace ConsoleProject
 
         public void EditDepartaments(string name, string newname)
         {
-            foreach (Department item in Departments) 
+            foreach (Department item in Departments)
             {
-                if (item.Name == name) 
+                if (item.Name == name)
                 {
                     item.Name = newname;
                     break;
@@ -58,9 +57,58 @@ namespace ConsoleProject
             }
         }
 
-        public Department[] GetDepartments()
+        public void GetDepartments()
         {
-            return _departments;
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}:\nName:{_departments[i].Name}\nWorker Limit:{_departments[i].WorkerLimit}\nSalary Limit:{_departments[i].SalaryLimit}");
+            }
         }
+        public void RemoveEmployee(string empno, string depname)
+        {
+            check:
+            if (CheckDepartments(depname))
+            {
+                for (int i = 0; i < _departments.Length; i++)
+                {
+                    if (_departments[i].Name == depname)
+                    {
+                        for (int j = 0; j < _departments[i].Employees.Length; j++)
+                        {
+                            if (_departments[i].Employees[j].No == empno)
+                            {
+                                _departments[i].Employees[j] = _departments[i].Employees[_departments[i].Employees.Length - 1];
+                                Array.Resize(ref _departments[i].Employees, _departments[i].Employees.Length - 1);
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+            else 
+            {
+                Console.WriteLine("this department name doesnt exist");
+                depname = Console.ReadLine();
+                goto check;
+            }
+        }
+        public void EditEmploye(string departmentName, string no, string fullname, double salary, string position)
+        {
+            throw new NotImplementedException();
+        }
+        public static bool CheckDepartments(string depname)
+        {
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == depname)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

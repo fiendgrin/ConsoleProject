@@ -67,7 +67,7 @@ Employee class:
  2.3 - Isci elave etmek - Yeni isci elave edilmesi ucun lazim olan melumatlarin console-dan daxil edilmesi istenilir, 
                           deyerler yanlis olduqda tekrar daxil edilmesi istenilir
 
- 2.4 - Isci uzerinde deyisiklik etmek  - console-dan deyisikkik edilecek iscinin nomresi daxil edilir,
+ 2.4 - Isci uzerinde deyisiklik etmek  - console-dan deyisiklik edilecek iscinin nomresi daxil edilir,
                                          o nomrede isci yoxdursa xeta mesaji veirr ve proses menusuna qayidir.
                                          Eger varsa o iscinin hazirki melumatlarini (fullname, salary, position) ve 
                                          console-dan salary ve position ucun yeni deyerler teyin etmesi gozlenilir.

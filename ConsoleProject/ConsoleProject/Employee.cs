@@ -9,7 +9,23 @@ namespace ConsoleProject
 {
     internal class Employee
     {
-        public string No;
+        public Employee()
+        {
+            _count++;
+            No = "";
+        }
+        private string _no;
+
+        public string No
+        {
+            get { return _no; }
+            private set 
+            {
+                value += _departmentName[0] + _departmentName[1] + _count;
+                _no = value;
+            }
+        }
+
         public string FullName;
         private string _position;
 
@@ -55,7 +71,28 @@ namespace ConsoleProject
             }
         }
 
-        public string DepartmentName;
+        private string _departmentName;
 
+        public string DepartmentName
+        {
+            get { return _departmentName; }
+            set 
+            {
+                while (_departmentName != value)
+                {
+                    if (HumanResourceManager.CheckDepartments(value))
+                    {
+                        _departmentName = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("this department name doesnt exist");
+                        value = Console.ReadLine();
+                    }
+                }
+            }
+        }
+
+        private static int _count = 999;
     }
 }
