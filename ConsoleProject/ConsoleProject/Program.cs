@@ -1,11 +1,10 @@
 ﻿using ConsoleProject.Interfaces;
-using System.Xml.Linq;
 
 namespace ConsoleProject
 {
     class Program
     {
-        public static void ShowAllDep(ref IHumanResourceManager humanResourceManager)
+        public static void ShowAllDep(IHumanResourceManager humanResourceManager)
         {
             for (int i = 0; i < humanResourceManager.GetDepartments().Length; i++)
             {
@@ -48,9 +47,9 @@ namespace ConsoleProject
         }
         public static void Main(string[] args)
         {
+            IHumanResourceManager humanResourceManager = new HumanResourceManager();
             do
-            {
-                IHumanResourceManager humanResourceManager = new HumanResourceManager();
+            {                
                 Console.WriteLine("1 - Show all departments");
                 Console.WriteLine("2 - Add department");
                 Console.WriteLine("3 - Edit department");
@@ -71,7 +70,7 @@ namespace ConsoleProject
                 switch (op)
                 {
                     case 1:
-                        ShowAllDep(ref humanResourceManager);
+                        ShowAllDep(humanResourceManager);
                         break;
                     case 2:
                         AddDep(ref humanResourceManager);
