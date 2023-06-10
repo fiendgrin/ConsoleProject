@@ -16,5 +16,8 @@ namespace ConsoleProject.Interfaces
         void RemoveEmployee(string empno, string depname);
         void EditEmploye(string departmentName, string no, string fullname, double salary, string position);
         bool CheckDepartments(string depname);
+        void ShowAllEmp();
+        void EmpbyDep(string depName);
+        bool CheckNo(string No);
     }
 }

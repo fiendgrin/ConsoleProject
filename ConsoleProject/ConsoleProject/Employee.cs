@@ -64,7 +64,7 @@ namespace ConsoleProject
         private static int _count = 999;
         private void GenerateEmployeeNo()
         {
-            No = $"{DepartmentName.Substring(0, 2)}{_count}";
+            No = $"{DepartmentName.Substring(0, 2).ToUpper()}{_count}";
         }
     }
 }

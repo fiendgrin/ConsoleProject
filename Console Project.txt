@@ -60,7 +60,7 @@ Employee class:
 
  2.1 - Iscilerin siyahisini gostermek - sistemdeki butun iscilerin nomre, ad soyad, departament adi ve maasi gosterilir
  
- 2.2 - Departamentdeki iscilerin siyahisini gostermrek  - consoledan departament adi daxil edilir ve hemin 
+ 2.2 - Departamentdeki iscilerin siyahisini gostermek  - consoledan departament adi daxil edilir ve hemin 
                                                           departamentdeki iscilerin nomre,ad soyad, vezife 
                                                           ve maas deyerleri gosterilir
 

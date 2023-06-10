@@ -56,7 +56,7 @@ namespace ConsoleProject
 
             for (int i = 0; i < _departments.Length; i++)
             {
-                if (_departments[i].Name == name) 
+                if (_departments[i].Name == name)
                 {
                     _departments[i].Name = newname;
                     _departments[i].WorkerLimit = workerlimit;
@@ -75,36 +75,25 @@ namespace ConsoleProject
         }
         public void RemoveEmployee(string empno, string depname)
         {
-        check:
-            if (CheckDepartments(depname))
+            for (int i = 0; i < _departments.Length; i++)
             {
-                for (int i = 0; i < _departments.Length; i++)
+                if (_departments[i].Name == depname)
                 {
-                    if (_departments[i].Name == depname)
+                    for (int j = 0; j < _departments[i].Employees.Length; j++)
                     {
-                        for (int j = 0; j < _departments[i].Employees.Length; j++)
+                        if (_departments[i].Employees[j].No == empno)
                         {
-                            if (_departments[i].Employees[j].No == empno)
-                            {
-                                _departments[i].Employees[j] = _departments[i].Employees[_departments[i].Employees.Length - 1];
-                                Array.Resize(ref _departments[i].Employees, _departments[i].Employees.Length - 1);
-                            }
+                            _departments[i].Employees[j] = _departments[i].Employees[_departments[i].Employees.Length - 1];
+                            Array.Resize(ref _departments[i].Employees, _departments[i].Employees.Length - 1);
+                            break;
                         }
-
                     }
+
                 }
-
-
-            }
-            else
-            {
-                Console.WriteLine("this department name doesnt exist");
-                depname = Console.ReadLine();
-                goto check;
             }
         }
         public void EditEmploye(string departmentName, string no, string fullname, double salary, string position)
-        {            
+        {
             for (int i = 0; i < _departments.Length; i++)
             {
                 if (departmentName == _departments[i].Name)
@@ -132,7 +121,48 @@ namespace ConsoleProject
             }
             return false;
         }
+        public void ShowAllEmp()
+        {
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                for (int j = 0; j < _departments[i].Employees.Length; j++)
+                {
+                    Console.WriteLine($"({i + 1}.{j + 1})\nDepartment Name{_departments[i].Employees[j].DepartmentName}" +
+                        $"\nFull Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
+                        $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
+                }
+            }
+        }
+        public void EmpbyDep(string depName)
+        {
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == depName)
+                {
+                    for (int j = 0; j < _departments[i].Employees.Length; j++)
+                    {
+                        Console.WriteLine($"Full Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
+                        $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
+                    }
+                    break;
+                }
+            }
+        }
+        public bool CheckNo(string No)
+        {
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                for (int j = 0; j < _departments[i].Employees.Length; j++)
+                {
+                    if (_departments[i].Employees[j].No == No)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
-        
+
     }
 }

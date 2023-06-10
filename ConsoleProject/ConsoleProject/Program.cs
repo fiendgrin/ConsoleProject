@@ -52,7 +52,7 @@ namespace ConsoleProject
             string depName = Console.ReadLine();
             if (!humanResourceManager.CheckDepartments(depName))
             {
-                Console.WriteLine("Invalid department name!!!");
+                Console.WriteLine("This department name does not exist!!!");
                 return;
             }
 
@@ -93,6 +93,7 @@ namespace ConsoleProject
             }
             humanResourceManager.EditDepartaments(depName, Name, Workerlimit, SalaryLimit);
         }
+
         public static void AddEmp(ref IHumanResourceManager humanResourceManager)
         {
         nameins:
@@ -139,10 +140,10 @@ namespace ConsoleProject
                 Console.WriteLine("Salary cant be less than 250");
                 Salary = double.Parse(Console.ReadLine());
             }
-            insDepName:
+        insDepName:
             Console.WriteLine("Insert Employee's Department name:");
             string DepName = Console.ReadLine();
-            if (!humanResourceManager.CheckDepartments(DepName)) 
+            if (!humanResourceManager.CheckDepartments(DepName))
             {
                 Console.WriteLine("This department name does not exist!!!");
                 goto insDepName;
@@ -150,6 +151,102 @@ namespace ConsoleProject
 
             humanResourceManager.AddEmployee(Name, Position, Salary, DepName);
 
+        }
+
+        public static void ShowAllEmpbyDep(IHumanResourceManager humanResourceManager)
+        {
+            Console.WriteLine("Insert the name of depatment:");
+            string DepName = Console.ReadLine();
+            bool check = humanResourceManager.CheckDepartments(DepName);
+            if (!check)
+            {
+                Console.WriteLine("This department name does not exist!!!");
+                return;
+            }
+            humanResourceManager.EmpbyDep(DepName);
+        }
+
+        public static void EditEmp(ref IHumanResourceManager humanResourceManager)
+        {
+            Console.WriteLine("Insert the Number of the employee:");
+            string No = Console.ReadLine();
+            if (!humanResourceManager.CheckNo(No))
+            {
+                Console.WriteLine("Invalid Number!!!");
+                return;
+            }
+        nameins:
+            Console.WriteLine("Insert the new full name of an employee:");
+            string Name = Console.ReadLine();
+            int count = 0;
+            if (String.IsNullOrWhiteSpace(Name))
+            {
+                Console.WriteLine("Invalid name(Example:Abbas Abbasov)");
+                goto nameins;
+            }
+            foreach (string item in Name.Split(" "))
+            {
+                count++;
+                if (!char.IsUpper(item[0]))
+                {
+                    Console.WriteLine("Invalid name(Example:Abbas Abbasov)");
+                    goto nameins;
+                }
+            }
+            if (count < 2)
+            {
+                Console.WriteLine("Invalid name(Example:Abbas Abbasov)");
+                goto nameins;
+            }
+
+            Console.WriteLine("Insert new Employee's Position:");
+            string Position = Console.ReadLine();
+            while (Position.Length < 2)
+            {
+                Console.WriteLine("Position name cant be less than 2 characters");
+                Position = Console.ReadLine();
+            }
+        insSalary:
+            Console.WriteLine("Insert Employee's new Salary:");
+            string strSalary = Console.ReadLine();
+            if (!double.TryParse(strSalary, out double Salary))
+            {
+                Console.WriteLine("Invalid insert!!!");
+                goto insSalary;
+            }
+            while (Salary < 250)
+            {
+                Console.WriteLine("Salary cant be less than 250");
+                Salary = double.Parse(Console.ReadLine());
+            }
+        insDepName:
+            Console.WriteLine("Insert Employee's new Department name:");
+            string DepName = Console.ReadLine();
+            if (!humanResourceManager.CheckDepartments(DepName))
+            {
+                Console.WriteLine("This department name does not exist!!!");
+                goto insDepName;
+            }
+
+            humanResourceManager.EditEmploye(DepName, No, Name, Salary, Position);
+        }
+        public static void RemoveEmp(ref IHumanResourceManager humanResourceManager)
+        {
+            Console.WriteLine("Insert the Department name:");
+            string depName = Console.ReadLine();
+            if (!humanResourceManager.CheckDepartments(depName))
+            {
+                Console.WriteLine("This department name does not exist!!!");
+                return;
+            }
+            Console.WriteLine("Insert the Number of the employee:");
+            string No = Console.ReadLine();
+            if (!humanResourceManager.CheckNo(No))
+            {
+                Console.WriteLine("Invalid Number!!!");
+                return;
+            }
+            humanResourceManager.RemoveEmployee(No, depName);
         }
         public static void Main(string[] args)
         {
@@ -185,15 +282,19 @@ namespace ConsoleProject
                         DepEdit(ref humanResourceManager);
                         break;
                     case 4:
+                        humanResourceManager.ShowAllEmp();
                         break;
                     case 5:
+                        ShowAllEmpbyDep(humanResourceManager);
                         break;
                     case 6:
                         AddEmp(ref humanResourceManager);
                         break;
                     case 7:
+                        EditEmp(ref humanResourceManager);
                         break;
                     case 8:
+                        RemoveEmp(ref humanResourceManager);
                         break;
                 }
             } while (true);
