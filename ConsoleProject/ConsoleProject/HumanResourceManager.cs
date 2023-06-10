@@ -22,9 +22,9 @@ namespace ConsoleProject
         }
 
 
-        public void AddDepartment(string name, int workerlimit, double SalaryLimit,Department department)
+        public void AddDepartment(string name, int workerlimit, double SalaryLimit)
         {
-            
+            Department department = new Department();
             department.Name = name;
             department.WorkerLimit = workerlimit;
             department.SalaryLimit = SalaryLimit;
@@ -35,7 +35,7 @@ namespace ConsoleProject
         public void AddEmployee(string fullName, string position, double salary, string departmentName)
         {
 
-            Employee employee = new Employee();
+            Employee employee = new Employee(departmentName);
             employee.FullName = fullName;
             employee.Position = position;
             employee.Salary = salary;
@@ -51,14 +51,16 @@ namespace ConsoleProject
 
         }
 
-        public void EditDepartaments(string name, string newname)
+        public void EditDepartaments(string name, string newname, int workerlimit, double salarylimit)
         {
-            foreach (Department item in Departments)
+
+            for (int i = 0; i < _departments.Length; i++)
             {
-                if (item.Name == name)
+                if (_departments[i].Name == name) 
                 {
-                    item.Name = newname;
-                    break;
+                    _departments[i].Name = newname;
+                    _departments[i].WorkerLimit = workerlimit;
+                    _departments[i].SalaryLimit = salarylimit;
                 }
             }
         }
@@ -102,7 +104,7 @@ namespace ConsoleProject
             }
         }
         public void EditEmploye(string departmentName, string no, string fullname, double salary, string position)
-        {
+        {            
             for (int i = 0; i < _departments.Length; i++)
             {
                 if (departmentName == _departments[i].Name)
@@ -131,5 +133,6 @@ namespace ConsoleProject
             return false;
         }
 
+        
     }
 }

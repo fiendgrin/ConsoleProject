@@ -55,7 +55,7 @@ Employee class:
 
  1.3 - Departmanetde deyisiklik etmek - consoledan deyisiklik edilecek departamaentin adi daxil edilir,
                                         eger o adda departament yoxdursa xeta mesaji verir ve proses menusuna qayidir, 
-                                        yox eger varsa departamentin haziki deyerlerini gosterir ve yeni deyerleri daxil
+                                        yox eger varsa departamentin hazirki deyerlerini gosterir ve yeni deyerleri daxil
                                          etmesini isteyir
 
  2.1 - Iscilerin siyahisini gostermek - sistemdeki butun iscilerin nomre, ad soyad, departament adi ve maasi gosterilir

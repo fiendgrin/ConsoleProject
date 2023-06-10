@@ -9,24 +9,25 @@ namespace ConsoleProject
 {
     internal class Employee
     {
-        public Employee()
+        public Employee(string departmentName)
         {
             _count++;
-            No = "";
+            _departmentName = departmentName;
+            GenerateEmployeeNo();
+            
         }
         private string _no;
 
-        public string No
+        public string No { get;set;}
+
+        private string _fullName;
+
+        public string FullName
         {
-            get { return _no; }
-            private set 
-            {
-                value += _departmentName[0] + _departmentName[1] + _count.ToString(); ;
-                _no = value;
-            }
+            get { return _fullName; }
+            set { _fullName = value; }
         }
 
-        public string FullName;
         private string _position;
 
         public string Position
@@ -34,18 +35,7 @@ namespace ConsoleProject
             get { return _position; }
             set
             {
-                while (_position != value)
-                {
-                    if (value.Length >= 2)
-                    {
-                        _position = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Position name cant be less than 2 characters");
-                        value = Console.ReadLine();
-                    }
-                }
+                _position = value;
             }
         }
 
@@ -56,18 +46,7 @@ namespace ConsoleProject
             get { return _salary; }
             set
             {
-                while (_salary != value)
-                {
-                    if (_salary >= 250)
-                    {
-                        _salary = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Salary cant be less than 250");
-                        value = double.Parse(Console.ReadLine());
-                    }
-                }
+               _salary = value;
             }
         }
 
@@ -79,21 +58,13 @@ namespace ConsoleProject
             set 
             {
                 _departmentName = value;
-                //while (_departmentName != value)
-                //{
-                //    if (CheckDepartments(value))
-                //    {
-                //        _departmentName = value;
-                //    }
-                //    else
-                //    {
-                //        Console.WriteLine("this department name doesnt exist");
-                //        value = Console.ReadLine();
-                //    }
-                //}
             }
         }
 
         private static int _count = 999;
+        private void GenerateEmployeeNo()
+        {
+            No = $"{DepartmentName.Substring(0, 2)}{_count}";
+        }
     }
 }
