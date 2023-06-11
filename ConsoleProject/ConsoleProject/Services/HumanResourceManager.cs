@@ -142,7 +142,7 @@ namespace ConsoleProject.Services
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine($"({i + 1}.{j + 1})\nDepartment Name:{_departments[i].Employees[j].DepartmentName}" +
-                        $"\nFull Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
+                        $"\nFull Name:{_departments[i].Employees[j].FullName}" +
                         $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
                     Console.ResetColor();
                 }
