@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleProject.Interfaces;
+using ConsoleProject.Models;
 
-namespace ConsoleProject
+namespace ConsoleProject.Services
 {
     internal class HumanResourceManager : IHumanResourceManager
     {
@@ -123,13 +124,16 @@ namespace ConsoleProject
         }
         public void ShowAllEmp()
         {
+            Console.Clear();
             for (int i = 0; i < _departments.Length; i++)
             {
                 for (int j = 0; j < _departments[i].Employees.Length; j++)
                 {
-                    Console.WriteLine($"({i + 1}.{j + 1})\nDepartment Name{_departments[i].Employees[j].DepartmentName}" +
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"({i + 1}.{j + 1})\nDepartment Name:{_departments[i].Employees[j].DepartmentName}" +
                         $"\nFull Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
                         $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
+                    Console.ResetColor();
                 }
             }
         }
@@ -141,8 +145,10 @@ namespace ConsoleProject
                 {
                     for (int j = 0; j < _departments[i].Employees.Length; j++)
                     {
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine($"Full Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
                         $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
+                        Console.ResetColor();
                     }
                     break;
                 }
@@ -162,7 +168,6 @@ namespace ConsoleProject
             }
             return false;
         }
-
 
     }
 }

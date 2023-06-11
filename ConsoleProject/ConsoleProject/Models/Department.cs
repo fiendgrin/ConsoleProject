@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleProject
+namespace ConsoleProject.Models
 {
     internal class Department
     {
@@ -13,11 +13,11 @@ namespace ConsoleProject
         public Department()
         {
             _employees = new Employee[0];
-            
+
         }
-        public ref  Employee[] Employees 
-        { 
-            get { return ref _employees; } 
+        public ref Employee[] Employees
+        {
+            get { return ref _employees; }
         }
         public string Name
         {
@@ -28,7 +28,7 @@ namespace ConsoleProject
         public int WorkerLimit
         {
             get { return _workerLimit; }
-            set  {  _workerLimit = value;}
+            set { _workerLimit = value; }
         }
         private double _salaryLimit;
         public double SalaryLimit
@@ -50,7 +50,7 @@ namespace ConsoleProject
         }
         public override string ToString()
         {
-            return $"\nOld Name:{this._name}\nOld Worker Limit:{this._workerLimit}\nOld Salary Limit:{this._salaryLimit}";
+            return $"\nOld Name:{_name}\nOld Worker Limit:{_workerLimit}\nOld Salary Limit:{_salaryLimit}";
         }
     }
 }

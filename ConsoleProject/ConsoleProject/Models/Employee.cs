@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleProject
+namespace ConsoleProject.Models
 {
     internal class Employee
     {
@@ -14,11 +14,11 @@ namespace ConsoleProject
             _count++;
             _departmentName = departmentName;
             GenerateEmployeeNo();
-            
+
         }
         private string _no;
 
-        public string No { get;set;}
+        public string No { get; set; }
 
         private string _fullName;
 
@@ -46,7 +46,7 @@ namespace ConsoleProject
             get { return _salary; }
             set
             {
-               _salary = value;
+                _salary = value;
             }
         }
 
@@ -55,7 +55,7 @@ namespace ConsoleProject
         public string DepartmentName
         {
             get { return _departmentName; }
-            set 
+            set
             {
                 _departmentName = value;
             }
