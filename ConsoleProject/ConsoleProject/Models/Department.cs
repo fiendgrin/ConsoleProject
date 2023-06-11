@@ -50,7 +50,7 @@ namespace ConsoleProject.Models
         }
         public override string ToString()
         {
-            return $"\nOld Name:{_name}\nOld Worker Limit:{_workerLimit}\nOld Salary Limit:{_salaryLimit}";
+            return $"\nOld Name:{_name}\nOld Worker Limit:{_workerLimit}\nOld Salary Limit:{_salaryLimit}\n";
         }
     }
 }

@@ -64,7 +64,11 @@ namespace ConsoleProject.Models
         private static int _count = 999;
         private void GenerateEmployeeNo()
         {
-            No = $"{DepartmentName.Substring(0, 2).ToUpper()}{_count}";
+            No = $"{_departmentName.Substring(0, 2).ToUpper()}{_count}";
+        }
+        public override string ToString() 
+        {
+            return $"\nFull Name:{_fullName}\nOld Position:{_position}\nOld Salary:{_salary}\n";
         }
     }
 }

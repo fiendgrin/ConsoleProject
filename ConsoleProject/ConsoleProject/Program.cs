@@ -70,6 +70,13 @@ namespace ConsoleProject
         public static void DepEdit(ref IHumanResourceManager humanResourceManager)
         {
             Console.Clear();
+            if (humanResourceManager.GetDepartments().Length < 1)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("No Departments exist !!!");
+                Console.ResetColor();
+                return;
+            }
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Insert the Department name:");
             Console.ResetColor();
@@ -86,7 +93,7 @@ namespace ConsoleProject
             {
                 if (dep.Name == depName)
                 {
-                    Console.WriteLine(dep.ToString() + "\n");
+                    Console.WriteLine(dep.ToString());
                 }
             }
 
@@ -97,7 +104,7 @@ namespace ConsoleProject
             while (Name.Length < 2)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Department name cant be less than 2 characters!!!");
+                Console.WriteLine("Department name can't be less than 2 characters!!!");
                 Console.ResetColor();
                 Name = Console.ReadLine();
 
@@ -105,28 +112,45 @@ namespace ConsoleProject
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Insert the new Worker Limit:");
             Console.ResetColor();
+        editWorkerLim:
             string str = Console.ReadLine();
             int Workerlimit;
             while (!int.TryParse(str, out Workerlimit) || Workerlimit < 1)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Cant be less than \"1\" and should be a number!!!");
+                Console.WriteLine("Can't be less than \"1\" and should be a number!!!");
                 Console.ResetColor();
                 str = Console.ReadLine();
 
             }
+            if (humanResourceManager.GetEmployees(depName).Length > Workerlimit)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Worker limit cant be less that the amount of existing workers!!!");
+                Console.ResetColor();
+                goto editWorkerLim;
+            }
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Insert the new Salary Limit:");
             Console.ResetColor();
+        EditSalaryLim:
             string str1 = Console.ReadLine();
             double SalaryLimit;
             while (!double.TryParse(str1, out SalaryLimit) || SalaryLimit < 250)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Cant be less than \"250\" and should be an amount");
+                Console.WriteLine("Can't be less than \"250\" and should be an amount");
                 Console.ResetColor();
                 str1 = Console.ReadLine();
             }
+            if (humanResourceManager.SalarySum(depName) > SalaryLimit)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Salary Limit can't be less than summary of salarys in department");
+                Console.ResetColor();
+                goto EditSalaryLim;
+            }
+
             humanResourceManager.EditDepartaments(depName, Name, Workerlimit, SalaryLimit);
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -137,6 +161,59 @@ namespace ConsoleProject
         public static void AddEmp(ref IHumanResourceManager humanResourceManager)
         {
             Console.Clear();
+            if (humanResourceManager.GetDepartments().Length < 1)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("No Departments exist !!!");
+                Console.ResetColor();
+                return;
+            }
+
+        insDepName:
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Insert Employee's Department name:");
+            Console.ResetColor();
+            string DepName = Console.ReadLine();
+            if (!humanResourceManager.CheckWorkerLimit(DepName))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Worker Limit is reached in this department!!!");
+                Console.ResetColor();
+                return;
+            }
+            if (!humanResourceManager.CheckDepartments(DepName))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("This department name does not exist!!!");
+                Console.ResetColor();
+                goto insDepName;
+            }
+        insSalary:
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Insert Employee's Salary:");
+            Console.ResetColor();
+            string strSalary = Console.ReadLine();
+            if (!double.TryParse(strSalary, out double Salary))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Invalid insert!!!");
+                Console.ResetColor();
+                goto insSalary;
+            }
+            while (Salary < 250)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Salary cant be less than 250!!!");
+                Console.ResetColor();
+                Salary = double.Parse(Console.ReadLine());
+            }
+            if (!humanResourceManager.CheckSalaryLimit(DepName, Salary))
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Salary Limit Overflow!!!");
+                Console.ResetColor();
+                return;
+            }
         nameins:
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Insert the full name of an employee:");
@@ -179,37 +256,7 @@ namespace ConsoleProject
                 Console.ResetColor();
                 Position = Console.ReadLine();
             }
-        insSalary:
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert Employee's Salary:");
-            Console.ResetColor();
-            string strSalary = Console.ReadLine();
-            if (!double.TryParse(strSalary, out double Salary))
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Invalid insert!!!");
-                Console.ResetColor();
-                goto insSalary;
-            }
-            while (Salary < 250)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Salary cant be less than 250!!!");
-                Console.ResetColor();
-                Salary = double.Parse(Console.ReadLine());
-            }
-        insDepName:
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert Employee's Department name:");
-            Console.ResetColor();
-            string DepName = Console.ReadLine();
-            if (!humanResourceManager.CheckDepartments(DepName))
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("This department name does not exist!!!");
-                Console.ResetColor();
-                goto insDepName;
-            }
+
 
             humanResourceManager.AddEmployee(Name, Position, Salary, DepName);
             Console.Clear();
@@ -251,47 +298,31 @@ namespace ConsoleProject
                 Console.ResetColor();
                 return;
             }
-        nameins:
+
+        insDepName:
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert the new full name of an employee:");
+            Console.WriteLine("Insert Employee's Department name:");
             Console.ResetColor();
-            string Name = Console.ReadLine();
-            int count = 0;
-            if (String.IsNullOrWhiteSpace(Name))
+            string DepName = Console.ReadLine();
+            if (!humanResourceManager.CheckDepartments(DepName))
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Invalid name(Example:Abbas Abbasov)!!!");
+                Console.WriteLine("This department name does not exist!!!");
                 Console.ResetColor();
-                goto nameins;
-            }
-            foreach (string item in Name.Split(" "))
+                goto insDepName;
+            }           
+            foreach (Department dep in humanResourceManager.GetDepartments())
             {
-                count++;
-                if (!char.IsUpper(item[0]))
+                if (dep.Name == DepName)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("Invalid name(Example:Abbas Abbasov)!!!");
-                    Console.ResetColor();
-                    goto nameins;
+                    foreach (Employee item in dep.Employees)
+                    {
+                        if (item.No == No)
+                        {                            
+                            Console.WriteLine(item.ToString());
+                        }
+                    }
                 }
-            }
-            if (count < 2)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Invalid name(Example:Abbas Abbasov)!!!");
-                Console.ResetColor();
-                goto nameins;
-            }
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert new Employee's Position:");
-            Console.ResetColor();
-            string Position = Console.ReadLine();
-            while (Position.Length < 2)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Position name cant be less than 2 characters!!!");
-                Console.ResetColor();
-                Position = Console.ReadLine();
             }
         insSalary:
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -312,20 +343,27 @@ namespace ConsoleProject
                 Console.ResetColor();
                 Salary = double.Parse(Console.ReadLine());
             }
-        insDepName:
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert Employee's new Department name:");
-            Console.ResetColor();
-            string DepName = Console.ReadLine();
-            if (!humanResourceManager.CheckDepartments(DepName))
+            if (humanResourceManager.SalarySum(DepName) - humanResourceManager.GetEmployee(DepName,No).Salary + Salary > humanResourceManager.GetDepartment(DepName).SalaryLimit)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("This department name does not exist!!!");
+                Console.WriteLine("Salary Limit Overflow!!!");
                 Console.ResetColor();
-                goto insDepName;
+                goto insSalary;
+            }
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Insert new Employee's Position:");
+            Console.ResetColor();
+            string Position = Console.ReadLine();
+            while (Position.Length < 2)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Position name cant be less than 2 characters!!!");
+                Console.ResetColor();
+                Position = Console.ReadLine();
             }
 
-            humanResourceManager.EditEmploye(DepName, No, Name, Salary, Position);
+
+            humanResourceManager.EditEmploye(DepName, No, Salary, Position);
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Employee succesfully edited!");

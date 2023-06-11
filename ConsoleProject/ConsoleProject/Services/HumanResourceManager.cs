@@ -74,6 +74,18 @@ namespace ConsoleProject.Services
             //    Console.WriteLine($"{i + 1}:\nName:{_departments[i].Name}\nWorker Limit:{_departments[i].WorkerLimit}\nSalary Limit:{_departments[i].SalaryLimit}");
             //}
         }
+        public Employee[] GetEmployees(string depName)
+        {
+            Employee[] Employees = { };
+            foreach (Department item in _departments)
+            {
+                if (item.Name == depName)
+                {
+                    Employees = item.Employees;
+                }
+            }
+            return Employees;
+        }
         public void RemoveEmployee(string empno, string depname)
         {
             for (int i = 0; i < _departments.Length; i++)
@@ -93,7 +105,7 @@ namespace ConsoleProject.Services
                 }
             }
         }
-        public void EditEmploye(string departmentName, string no, string fullname, double salary, string position)
+        public void EditEmploye(string departmentName, string no, double salary, string position)
         {
             for (int i = 0; i < _departments.Length; i++)
             {
@@ -103,7 +115,6 @@ namespace ConsoleProject.Services
                     {
                         if (_departments[i].Employees[j].No == no)
                         {
-                            _departments[i].Employees[j].FullName = fullname;
                             _departments[i].Employees[j].Salary = salary;
                             _departments[i].Employees[j].Position = position;
                         }
@@ -146,7 +157,7 @@ namespace ConsoleProject.Services
                     for (int j = 0; j < _departments[i].Employees.Length; j++)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine($"Full Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
+                        Console.WriteLine($"{j + 1}\nFull Name:{_departments[i].Employees[j].FullName}\nPosition:{_departments[i].Employees[j].Position}" +
                         $"\nSalary:{_departments[i].Employees[j].Salary}\nNo:{_departments[i].Employees[j].No}");
                         Console.ResetColor();
                     }
@@ -168,6 +179,79 @@ namespace ConsoleProject.Services
             }
             return false;
         }
+        public bool CheckWorkerLimit(string DepName)
+        {
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == DepName && _departments[i].WorkerLimit == _departments[i].Employees.Length)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool CheckSalaryLimit(string DepName, double Salary)
+        {
+            double sum = 0;
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == DepName)
+                {
+                    for (int j = 0; j < _departments[i].Employees.Length; j++)
+                    {
+                        sum += _departments[i].Employees[j].Salary;
+                    }
+                    if (Salary > (_departments[i].SalaryLimit - sum) || (_departments[i].SalaryLimit - sum) < 250)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        public double SalarySum(string DepName)
+        {
+            double sum = 0;
+            for (int i = 0; i < _departments.Length; i++)
+            {
+                if (_departments[i].Name == DepName)
+                {
+                    for (int j = 0; j < _departments[i].Employees.Length; j++)
+                    {
+                        sum += _departments[i].Employees[j].Salary;
+                    }
+                }
+            }
+            return sum;
+        }
+        public Department GetDepartment(string DepName)
+        {
+            foreach (Department item in GetDepartments())
+            {
+                if (item.Name == DepName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public Employee GetEmployee(string DepName, string No)
+        {
 
+            foreach (Department dep in _departments)
+            {
+                if (DepName == dep.Name)
+                {
+                    foreach (Employee item in dep.Employees)
+                    {
+                        if (item.No == No)
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

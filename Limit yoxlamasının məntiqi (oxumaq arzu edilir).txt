@@ -1,0 +1,19 @@
+işçi əlavə edərkən, heç bir şöbə əlavə olunmayıbsa, menyuya qayıdır
+şöbəni dəyişdirərkən, heç bir şöbə əlavə edilmədikdə, menyuya qayıdır
+hər dəfə yeni işçi əlavə edildikdə işçi limiti yoxlanılır,
+həmçinin əmək haqqı limiti.(hər iki halda limiti aşmaqa yol verilmir)
+Şöbədə limitlər dəyişdirildikdə:
+bu şöbədə əməkhaqqının mövcud məbləğindən az əmək haqqı limitinin müəyyən edilməsinə yol verilmir;
+həm də mövcud işçilərin sayından az işçi limitinin müəyyən edilməsinə yol verilmir.
+Bir işçinin əmək haqqı dəyişdirilərkən, mövcud olanlarla birlikdə, limiti aşacaq əmək haqqının qoyulmasına da icazə verilmir.
+
+
+
+(при добавлении рабочего, если не добавлено ни одного департамента, то возвращается в меню
+при изменении департамента,если не добавлено ни одного департамента, то возвращается в меню
+лимит рабочих проверяется каждый раз при добавлении нового рабочего,
+также лимит зарплаты.(в обоих случаях не допускается превышение лимита)
+При измененни лимитов в департаменте:
+не позволяется поставить лимит зарплаты меньше существующей суммы зарплат в этом департаменте,
+также не позволяется поставить лимит рабочих меньше количества существующих рабочих.
+При изменени зарплаты рабочего, также не допускается поставить зарплату, которая в сумме с существующими превысит лимит.)
