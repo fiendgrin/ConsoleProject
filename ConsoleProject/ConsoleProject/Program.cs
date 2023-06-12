@@ -126,7 +126,7 @@ namespace ConsoleProject
             if (humanResourceManager.GetEmployees(depName).Length > Workerlimit)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Worker limit cant be less that the amount of existing workers!!!");
+                Console.WriteLine("Worker limit can't be less that the amount of existing workers!!!");
                 Console.ResetColor();
                 goto editWorkerLim;
             }
@@ -351,13 +351,13 @@ namespace ConsoleProject
                 goto insSalary;
             }
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Insert new Employee's Position:");
+            Console.WriteLine("Insert Employee's new Position:");
             Console.ResetColor();
             string Position = Console.ReadLine();
             while (Position.Length < 2)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Position name cant be less than 2 characters!!!");
+                Console.WriteLine("Position name can't be less than 2 characters!!!");
                 Console.ResetColor();
                 Position = Console.ReadLine();
             }
